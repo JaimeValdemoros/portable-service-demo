@@ -8,22 +8,15 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        hello-service = pkgs.writeText "hello.service" ''
-          [Unit]
-          Description=Hello world
-
-          [Service]
-          Type=oneshot
-          ExecStart=${pkgs.hello}/bin/hello
-
-          [Install]
-          WantedBy=multi-user.target default.target
-        '';
+        hello-service = pkgs.writeText "hello.service" (builtins.readFile ./hello.service);
       in {
         defaultPackage = pkgs.portableService {
           pname = "hello";
           version = "1.0";
           units = [ hello-service ];
+          symlinks = [
+            { object = "${pkgs.hello}/bin/hello"; symlink = "/bin/hello"; }
+          ];
         };
         devShell = with pkgs; mkShell {
           buildInputs = [squashfsTools];
