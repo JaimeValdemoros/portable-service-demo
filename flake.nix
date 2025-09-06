@@ -10,6 +10,7 @@
         pkgs = nixpkgs.legacyPackages.${system};
         hello-service = pkgs.writeText "hello.service" (builtins.readFile ./hello.service);
       in {
+        formatter = pkgs.nixfmt-tree;
         defaultPackage = pkgs.portableService {
           pname = "hello";
           version = "1.0";
