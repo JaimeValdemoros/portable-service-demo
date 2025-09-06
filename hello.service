@@ -1,9 +1,0 @@
-[Unit]
-Description=Hello world
-
-[Service]
-Type=oneshot
-ExecStart=/bin/hello
-
-[Install]
-WantedBy=multi-user.target default.target

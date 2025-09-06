@@ -1,0 +1,6 @@
+[Unit]
+Description=cowsay
+
+[Service]
+ExecStart=/bin/cowsay
+StandardInput=socket

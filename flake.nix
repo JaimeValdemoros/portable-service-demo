@@ -14,17 +14,25 @@
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        hello-service = pkgs.writeText "hello.service" (builtins.readFile ./hello.service);
       in
       {
         defaultPackage = pkgs.portableService {
-          pname = "hello";
+          pname = "cowsay";
           version = "1.0";
-          units = [ hello-service ];
+          units = [
+            {
+              name = "cowsay@.service";
+              outPath = "${./cowsay.service}";
+            }
+            {
+              name = "cowsay.socket";
+              outPath = "${./cowsay.socket}";
+            }
+          ];
           symlinks = [
             {
-              object = "${pkgs.hello}/bin/hello";
-              symlink = "/bin/hello";
+              object = "${pkgs.cowsay}/bin/cowsay";
+              symlink = "/bin/cowsay";
             }
           ];
         };
@@ -32,7 +40,10 @@
         devShell =
           with pkgs;
           mkShell {
-            buildInputs = [ squashfsTools ];
+            buildInputs = [
+              cowsay
+              squashfsTools
+            ];
           };
       }
     );
