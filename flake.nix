@@ -11,7 +11,7 @@
       in {
         defaultPackage = pkgs.hello;
         devShell = with pkgs; mkShell {
-          buildInputs = [];
+          buildInputs = [squashfsTools];
         };
       }
     );
