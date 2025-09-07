@@ -14,14 +14,20 @@
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
+        caddy = pkgs.caddy.withPlugins {
+          plugins = [
+            "github.com/hairyhenderson/caddy-teapot-module@v0.0.3-0"
+          ];
+          hash = "sha256-+8BLuvRPAjj8bk74UdDpT/E/vg4daAgz8MUa68aYMr4=";
+        };
       in
       {
         defaultPackage = pkgs.portableService {
           pname = "caddyplugins";
-          inherit (pkgs.caddy) version;
+          inherit (caddy) version;
           units = [
             (pkgs.concatText "caddyplugins.service" [
-              "${pkgs.caddy}/lib/systemd/system/caddy.service"
+              "${caddy}/lib/systemd/system/caddy.service"
               ./caddy.service
             ])
             (pkgs.concatText "caddyplugins.socket" [

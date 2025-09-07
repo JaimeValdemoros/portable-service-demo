@@ -1,4 +1,6 @@
 :3000 {
 	bind fd/3
-	respond "Hello, world!"
+	route {
+		teapot
+	}
 }
