@@ -4,3 +4,5 @@ Description=cowsay
 [Service]
 ExecStart=/bin/cowsay
 StandardInput=socket
+# https://unix.stackexchange.com/questions/187402/nix-package-manager-perl-warning-setting-locale-failed
+Environment=LC_ALL=C
