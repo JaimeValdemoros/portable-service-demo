@@ -1,9 +1,0 @@
-[Unit]
-Description=cowsay
-
-[Socket]
-ListenStream=9876
-Accept=yes
-
-[Install]
-WantedBy=sockets.target

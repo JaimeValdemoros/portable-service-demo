@@ -14,27 +14,12 @@
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        cowsay-service = {
-          name = "cowsay@.service";
-          outPath =
-            (pkgs.writeText "cowsay-template-service" (
-              builtins.replaceStrings [ "@cowsayExe@" ] [ "${pkgs.cowsay}/bin/cowsay" ] (
-                builtins.readFile ./cowsay${"@"}.service
-              )
-            )).outPath;
-        };
-        cowsay-socket = {
-          name = "cowsay.socket";
-          outPath = "${./cowsay.socket}";
-        };
       in
       {
         defaultPackage = pkgs.portableService {
-          pname = "cowsay";
-          version = "1.0";
+          inherit (pkgs.caddy) pname version;
           units = [
-            cowsay-service
-            cowsay-socket
+            (pkgs.concatText "caddy.service" [ "${pkgs.caddy}/lib/systemd/system/caddy.service" ])
           ];
         };
         formatter = pkgs.nixfmt-tree;
