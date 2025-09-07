@@ -1,6 +1,7 @@
-[service]
+[Service]
 PrivateTmp=yes
 Environment=CADDY_ADMIN=unix//tmp/caddy-admin.socket
+AmbientCapabilities=
 
 [Install]
 Requires=caddyplugins.socket
