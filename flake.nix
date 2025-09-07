@@ -19,7 +19,13 @@
         defaultPackage = pkgs.portableService {
           inherit (pkgs.caddy) pname version;
           units = [
-            (pkgs.concatText "caddy.service" [ "${pkgs.caddy}/lib/systemd/system/caddy.service" ])
+            (pkgs.concatText "caddy.service" [
+              "${pkgs.caddy}/lib/systemd/system/caddy.service"
+              ./caddy.service
+            ])
+            (pkgs.concatText "caddy.socket" [
+              ./caddy.socket
+            ])
           ];
           symlinks = [
             {
