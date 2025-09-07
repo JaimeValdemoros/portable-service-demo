@@ -17,13 +17,14 @@
       in
       {
         defaultPackage = pkgs.portableService {
-          inherit (pkgs.caddy) pname version;
+          pname = "caddyplugins";
+          inherit (pkgs.caddy) version;
           units = [
-            (pkgs.concatText "caddy.service" [
+            (pkgs.concatText "caddyplugins.service" [
               "${pkgs.caddy}/lib/systemd/system/caddy.service"
               ./caddy.service
             ])
-            (pkgs.concatText "caddy.socket" [
+            (pkgs.concatText "caddyplugins.socket" [
               ./caddy.socket
             ])
           ];
