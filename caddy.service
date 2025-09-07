@@ -1,2 +1,6 @@
-[Service]
-StandardInput=socket
+[service]
+PrivateTmp=yes
+Environment=CADDY_ADMIN=unix//tmp/caddy-admin.socket
+
+[Install]
+Requires=caddyplugins.socket
