@@ -21,6 +21,12 @@
           units = [
             (pkgs.concatText "caddy.service" [ "${pkgs.caddy}/lib/systemd/system/caddy.service" ])
           ];
+          symlinks = [
+            {
+              object = ./Caddyfile;
+              symlink = "/etc/caddy/Caddyfile";
+            }
+          ];
         };
         formatter = pkgs.nixfmt-tree;
         devShell =
