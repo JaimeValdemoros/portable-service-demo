@@ -17,9 +17,11 @@
         cowsay-service = {
           name = "cowsay@.service";
           outPath =
-            (pkgs.replaceVars (pkgs.writeText "cowsay.service" (builtins.readFile ./cowsay${"@"}.service)) {
-              cowsayExe = "${pkgs.cowsay}/bin/cowsay";
-            }).outPath;
+            (pkgs.writeText "cowsay-template-service" (
+              builtins.replaceStrings [ "@cowsayExe@" ] [ "${pkgs.cowsay}/bin/cowsay" ] (
+                builtins.readFile ./cowsay${"@"}.service
+              )
+            )).outPath;
         };
         cowsay-socket = {
           name = "cowsay.socket";
