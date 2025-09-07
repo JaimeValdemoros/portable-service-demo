@@ -6,3 +6,5 @@ ExecStart=@cowsayExe@
 StandardInput=socket
 # https://unix.stackexchange.com/questions/187402/nix-package-manager-perl-warning-setting-locale-failed
 Environment=LC_ALL=C
+# Recommended by https://www.freedesktop.org/software/systemd/man/latest/systemd.socket.html#Accept=
+CollectMode=inactive-or-failed
