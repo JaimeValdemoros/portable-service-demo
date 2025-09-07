@@ -22,7 +22,7 @@
           units = [
             {
               name = "cowsay@.service";
-              outPath = "${./cowsay.service}";
+              outPath = (pkgs.writeText "cowsay.service" (builtins.readFile ./cowsay${"@"}.service)).outPath;
             }
             {
               name = "cowsay.socket";
